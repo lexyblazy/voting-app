@@ -29,7 +29,7 @@ app.use(
   session({
     secret: SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
   })
 );
 
@@ -42,9 +42,13 @@ app.use(authRoutes);
 app.get("/", (req, res) => {
   res.send({ message: "Home page" });
 });
-app.get("/api", (req, res) => {
-  res.send({ message: "Api page" });
+app.get("/api/current_user", (req, res) => {
+  res.send(req.user);
 });
+app.get('/api/logout',(req,res)=>{
+  req.logout();
+  res.redirect('/');
+})
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on ${PORT}`);
