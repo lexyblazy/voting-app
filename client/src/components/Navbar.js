@@ -1,20 +1,33 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Navbar extends Component {
+ 
+  renderContent = () => {
+    switch (this.props.auth.user) {
+      case null:
+        return;
+      case false:
+        return (
+          <li>
+            <a href="/auth/twitter">Sign in With Twitter</a>
+          </li>
+        );
+      default:
+        return (
+          <li>
+            <a href="/api/logout">Logout</a>
+          </li>
+        );
+    }
+  };
   render() {
     return (
       <nav>
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo">
-            fcc-voting
-          </a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-              <a href="sass.html">Home</a>
-            </li>
-            <li>
-              <a href="/auth/twitter">Sign in With Twitter</a>
-            </li>
+        <div className="nav-wrapper">
+          <a className="brand-logo">fcc-voting</a>
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            {this.renderContent()}
           </ul>
         </div>
       </nav>
@@ -22,4 +35,8 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+const mapStateToProps = ({ auth }) => {
+  return { auth };
+};
+
+export default connect(mapStateToProps)(Navbar);

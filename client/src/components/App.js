@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-
-import Home from './Home';
+import Home from "./Home";
+import { fetchUser } from "../actions";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
   render() {
     return (
       <div>
-        <Home/>
+        <Home />
       </div>
     );
   }
 }
 
-export default App;
+export default connect(null, { fetchUser })(App);
