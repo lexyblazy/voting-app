@@ -8,7 +8,7 @@ router.get('/auth/facebook',(req,res)=>{
   res.send('this route will handle facebook oauth')
 })
 
-router.get('auth/twitter',(req,res)=>{
+router.get('/auth/twitter',(req,res)=>{
   res.send('this route will handle twitter oath');
 })
 
