@@ -1,15 +1,15 @@
-const router = require('express').Router({mergeParams:true});
+const router = require("express").Router();
+const passport = require("passport");
 
-router.get('/auth/google',(req,res)=>{
-  res.send('this route will handle google oauth');
-})
+router.get("/auth/twitter", passport.authenticate("twitter"));
 
-router.get('/auth/facebook',(req,res)=>{
-  res.send('this route will handle facebook oauth')
-})
-
-router.get('/auth/twitter',(req,res)=>{
-  res.send('this route will handle twitter oath');
-})
+router.get(
+  "/auth/twitter/callback",
+  passport.authenticate("twitter", { failureRedirect: "/api" }), 
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
+);
 
 module.exports = router;
