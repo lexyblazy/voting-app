@@ -2,11 +2,26 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class Navbar extends Component {
- 
   renderContent = () => {
     switch (this.props.auth.user) {
       case null:
-        return;
+        return (
+          <li>
+            <div className="preloader-wrapper small active">
+              <div className="spinner-layer spinner-yellow-only">
+                <div className="circle-clipper left">
+                  <div className="circle" />
+                </div>
+                <div className="gap-patch">
+                  <div class="circle" />
+                </div>
+                <div className="circle-clipper right">
+                  <div className="circle" />
+                </div>
+              </div>
+            </div>
+          </li>
+        );
       case false:
         return (
           <li>
@@ -24,7 +39,7 @@ class Navbar extends Component {
   render() {
     return (
       <nav>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper container">
           <a className="brand-logo">fcc-voting</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {this.renderContent()}
