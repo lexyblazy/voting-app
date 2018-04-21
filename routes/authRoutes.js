@@ -12,5 +12,13 @@ router.get(
   }
 );
 
+router.get("/api/current_user", (req, res) => {
+  res.send(req.user);
+});
+
+router.get("/api/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 
 module.exports = router;

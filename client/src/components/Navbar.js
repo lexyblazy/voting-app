@@ -25,15 +25,24 @@ class Navbar extends Component {
       case false:
         return (
           <li>
-            <a href="/auth/twitter">Sign in With Twitter</a>
+            <a href="/auth/twitter">Signin/Signup With Twitter</a>
           </li>
         );
       default:
-        return (
+        return [
+          <li>
+            <a href="/">Home</a>
+          </li>,
+          <li>
+            <a href="/">My Polls</a>
+          </li>,
+          <li>
+            <a href="/">New Polls</a>
+          </li>,
           <li>
             <a href="/api/logout">Logout</a>
           </li>
-        );
+        ];
     }
   };
   render() {
