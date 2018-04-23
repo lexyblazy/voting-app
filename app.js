@@ -30,7 +30,10 @@ app.use(
   session({
     secret: SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 60 * 60 * 24 * 30 * 1000
+    }
   })
 );
 
@@ -39,12 +42,11 @@ app.use(passport.session());
 
 require("./services/passport");
 app.use(authRoutes);
-app.use('/api',pollRoutes);
+app.use("/api", pollRoutes);
 
 app.get("/", (req, res) => {
   res.send({ message: "Home page" });
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on ${PORT}`);

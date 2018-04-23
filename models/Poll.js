@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
-const {Schema,model} = mongoose;
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const pollSchema = new Schema({
-  author:{
+  author: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   title: String,
   options: [String]
-})
+});
 
-module.exports = model('Poll',pollSchema);
+module.exports = mongoose.model("Poll", pollSchema);
