@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-  twitterId: String
+  twitterId: String,
+  name: String,
+  photo:String
 });
 
 module.exports = mongoose.model("User", userSchema);

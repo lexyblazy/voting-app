@@ -21,9 +21,17 @@ passport.use(
         const existingUser = await User.findOne({ twitterId: profile.id });
         //if no exisiting user,
         if (existingUser) {
+          //we update the user details;
+          existingUser.name = profile.displayName;
+          existingUser.photo = profile.photos[0].value;
+          await existingUser.save();
           return done(null, existingUser);
         }
-        const user = new User({ twitterId: profile.id });
+        const user = new User({
+          twitterId: profile.id,
+          name: profile.displayName,
+          photo: profile.photos[0].value
+        });
         await user.save();
         return done(null, user);
       } catch (error) {
@@ -33,13 +41,12 @@ passport.use(
   )
 );
 
-
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function (err, user) {
+  User.findById(id, function(err, user) {
     done(err, user);
   });
-})
+});
