@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 class Navbar extends Component {
   renderContent = () => {
-    switch (this.props.auth.user) {
+    const { user } = this.props.auth;
+    switch (user) {
       case null:
         return (
           <li>
@@ -31,14 +32,12 @@ class Navbar extends Component {
       default:
         return [
           <li>
-            <a href="/">Home</a>
-          </li>,
-          <li>
             <a href="/">My Polls</a>
           </li>,
           <li>
             <a href="/">New Polls</a>
           </li>,
+          <li>{user.name}</li>,
           <li>
             <a href="/api/logout">Logout</a>
           </li>
@@ -47,9 +46,9 @@ class Navbar extends Component {
   };
   render() {
     return (
-      <nav>
+      <nav style={{ backgroundColor: "#e67e22" }}>
         <div className="nav-wrapper container">
-          <a className="brand-logo">fcc-voting</a>
+          <a className="brand-logo">FCC-VOTING</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {this.renderContent()}
           </ul>
