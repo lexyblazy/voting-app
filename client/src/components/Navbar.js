@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   renderContent = () => {
@@ -14,7 +15,7 @@ class Navbar extends Component {
                   <div className="circle" />
                 </div>
                 <div className="gap-patch">
-                  <div class="circle" />
+                  <div className="circle" />
                 </div>
                 <div className="circle-clipper right">
                   <div className="circle" />
@@ -32,10 +33,10 @@ class Navbar extends Component {
       default:
         return [
           <li>
-            <a href="/">My Polls</a>
+            <Link to="/polls/me">My Polls</Link>
           </li>,
           <li>
-            <a href="/">New Polls</a>
+            <Link to="/polls/new">New Polls</Link>
           </li>,
           <li>{user.name}</li>,
           <li>
@@ -48,7 +49,7 @@ class Navbar extends Component {
     return (
       <nav style={{ backgroundColor: "#e67e22" }}>
         <div className="nav-wrapper container">
-          <a className="brand-logo">FCC-VOTING</a>
+          <Link to = '/polls' className="brand-logo">FCC-VOTING</Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {this.renderContent()}
           </ul>
