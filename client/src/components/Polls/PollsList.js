@@ -1,17 +1,25 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchAllPolls } from "../../actions";
 
 class PollsList extends Component {
+  componentWillMount() {
+    this.props.fetchAllPolls();
+  }
+
   render() {
+    console.log(this.props.polls);
     return (
       <div className="container center">
         <div>
           <h1>fcc-voting</h1>
           <p>
             Below are polls hosted by fcc-voting. Select a poll to see the
-            results and vote, or sign-in to make a new poll.
-            Below are polls hosted by fcc-voting. Select a poll to see the
-            results and vote, or sign-in to make a new poll. Below are polls hosted by fcc-voting. Select a poll to see the
-            results and vote, or sign-in to make a new poll. Below are polls hosted by fcc-voting. Select a poll to see the
+            results and vote, or sign-in to make a new poll. Below are polls
+            hosted by fcc-voting. Select a poll to see the results and vote, or
+            sign-in to make a new poll. Below are polls hosted by fcc-voting.
+            Select a poll to see the results and vote, or sign-in to make a new
+            poll. Below are polls hosted by fcc-voting. Select a poll to see the
             results and vote, or sign-in to make a new poll.
           </p>
         </div>
@@ -21,4 +29,6 @@ class PollsList extends Component {
   }
 }
 
-export default PollsList;
+const mapStateToProps = ({ polls }) => ({ polls });
+
+export default connect(mapStateToProps, { fetchAllPolls })(PollsList);

@@ -28,6 +28,8 @@ try {
 } catch (error) {
   console.log(error);
 }
+
+// some helpful middleware to make our lives easier
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
@@ -40,7 +42,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan("tiny"));
 
+//pull in our passport configuratin 
 require("./services/passport");
+
+//loadup our routes....
 app.use(authRoutes);
 app.use("/api", pollRoutes);
 
@@ -48,6 +53,7 @@ app.get("/", (req, res) => {
   res.send({ message: "Home page" });
 });
 
+//and of course, listen on this port...
 app.listen(PORT, () => {
   console.log(`Server is up and running on ${PORT}`);
 });
