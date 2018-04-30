@@ -13,14 +13,16 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <Navbar />
-        <Switch>
-          <Route path="/polls/new" exact component={PollsNew} />
-          <Route path="/polls" component={PollsList} />
-          <Route path="/" exact component={PollsList} />
-        </Switch>
-      </div>
+      <BrowserRouter>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route path="/polls/new" component={PollsNew} />
+            <Route path="/polls" component={PollsList} />
+            <Route path="/" exact component={PollsList} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }

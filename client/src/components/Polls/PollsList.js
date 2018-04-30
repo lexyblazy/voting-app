@@ -9,6 +9,10 @@ class PollsList extends Component {
           <p>
             Below are polls hosted by fcc-voting. Select a poll to see the
             results and vote, or sign-in to make a new poll.
+            Below are polls hosted by fcc-voting. Select a poll to see the
+            results and vote, or sign-in to make a new poll. Below are polls hosted by fcc-voting. Select a poll to see the
+            results and vote, or sign-in to make a new poll. Below are polls hosted by fcc-voting. Select a poll to see the
+            results and vote, or sign-in to make a new poll.
           </p>
         </div>
         <div>The polls list Component</div>

@@ -32,14 +32,14 @@ class Navbar extends Component {
         );
       default:
         return [
-          <li>
+          <li key="1">
             <Link to="/polls/me">My Polls</Link>
           </li>,
-          <li>
+          <li key="2">
             <Link to="/polls/new">New Polls</Link>
           </li>,
-          <li>{user.name}</li>,
-          <li>
+          <li key="3">{user.name}</li>,
+          <li key="4">
             <a href="/api/logout">Logout</a>
           </li>
         ];
@@ -49,7 +49,9 @@ class Navbar extends Component {
     return (
       <nav style={{ backgroundColor: "#e67e22" }}>
         <div className="nav-wrapper container">
-          <Link to = '/polls' className="brand-logo">FCC-VOTING</Link>
+          <Link to="/polls" className="brand-logo">
+            FCC-VOTING
+          </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {this.renderContent()}
           </ul>

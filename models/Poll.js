@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const pollSchema = new Schema({
-  author: {
+  _author: {
     type: Schema.Types.ObjectId,
     ref: "User"
   },
