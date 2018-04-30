@@ -6,7 +6,7 @@ exports.createPoll = async (req, res) => {
   const { title, options } = req.body;
   const poll = await new Poll({
     title,
-    options: options.split(","),
+    options: options,
     _author: req.user._id
   }).save();
   res.send(poll);

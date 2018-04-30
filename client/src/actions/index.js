@@ -10,3 +10,10 @@ export const fetchAllPolls = () => async dispatch => {
   const res = await axios.get("/api/polls");
   dispatch({ type: FETCH_ALL_POLLS, payload: res.data });
 };
+
+export const createPoll = (poll, history) => {
+  return async dispatch => {
+    const res = await axios.post("/api/polls", poll);
+    history.push("/polls");
+  };
+};
