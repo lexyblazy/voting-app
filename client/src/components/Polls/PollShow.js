@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPoll } from "../../actions/";
-import { Spinner, baseColor } from "../common";
+import { Spinner, baseColor, Chart } from "../common";
 
 class PollShow extends Component {
   componentDidMount() {
@@ -35,8 +35,8 @@ class PollShow extends Component {
             <h5>{poll.title}</h5>
             <div style={{ marginBottom: 20 }}>
               <label>I'd like to vote for: </label>
-              <select class="browser-default">
-                <option value="" disabled selected>
+              <select className="browser-default">
+                <option value="" disabled defaultValue>
                   Choose your option
                 </option>
                 {this.renderOptions()}
@@ -46,7 +46,9 @@ class PollShow extends Component {
               Submit
             </button>
           </div>
-          <div className="col s6">6-column</div>
+          <div className="col s6">
+            <Chart />
+          </div>
         </div>
       </div>
     );
