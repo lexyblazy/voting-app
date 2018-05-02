@@ -1,36 +1,39 @@
 import React from "react";
-import { Pie as PieChart } from "react-chartjs";
-const chartData = [
-  {
-    value: 300,
-    color: "#F7464A",
-    highlight: "#FF5A5E",
-    label: "Red"
-  },
-  {
-    value: 50,
-    color: "#46BFBD",
-    highlight: "#5AD3D1",
-    label: "Green"
-  },
-  {
-    value: 100,
-    color: "#FDB45C",
-    highlight: "#FFC870",
-    label: "Yellow"
-  }
-];
+import { Doughnut as PieChart } from "react-chartjs";
 
 const chartOptions = { animateScale: true };
 
-const Chart = () => {
+const Chart = ({ chartData }) => {
+  console.log(chartData);
   return (
-    <PieChart
-      data={chartData}
-      options={chartOptions}
-      width="600"
-      height="250"
-    />
+    <div>
+      <PieChart
+        data={chartData}
+        options={chartOptions}
+        width="600"
+        height="350"
+      />
+      <ul className="collection">
+        {chartData.map(d => {
+          console.log(d);
+          return (
+            <li key={d.label} className="collection-item valign-wrapper" >
+              <div
+                style={{
+                  width: 25,
+                  height: 25,
+                  borderRadius: 10,
+                  backgroundColor: d.color,
+                  marginRight: 10
+                }}
+              /> 
+              {"  "}
+              <div>{d.label} - {d.value} Votes</div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 

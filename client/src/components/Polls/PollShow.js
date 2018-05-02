@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPoll } from "../../actions/";
-import { Spinner, baseColor, Chart } from "../common";
+import { Spinner, baseColor, Chart, generateRandomColor } from "../common";
 
 class PollShow extends Component {
   componentDidMount() {
@@ -17,6 +17,20 @@ class PollShow extends Component {
         </option>
       );
     });
+  };
+
+  renderChart = () => {
+    const { options } = this.props.poll.poll;
+ 
+    const data = options.map(({ option, votesCount }, index) => {
+      return {
+        value: votesCount,
+        color: generateRandomColor(),
+        highlight: '#eaeaea',
+        label: option
+      };
+    });
+    return <Chart chartData={data} />;
   };
   render() {
     const { poll } = this.props.poll;
@@ -46,9 +60,7 @@ class PollShow extends Component {
               Submit
             </button>
           </div>
-          <div className="col s6">
-            <Chart />
-          </div>
+          <div className="col s6">{this.renderChart()}</div>
         </div>
       </div>
     );
