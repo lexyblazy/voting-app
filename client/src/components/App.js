@@ -7,6 +7,10 @@ import PollsList from "./Polls/PollsList";
 import PollsNew from "./Polls/PollsNew";
 import { fetchUser } from "../actions";
 
+// Todo => There should be two types of App
+// App before login
+// App after login
+
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();

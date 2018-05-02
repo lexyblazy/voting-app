@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { baseColor, Spinner } from "./common";
 
 class Navbar extends Component {
   renderContent = () => {
@@ -9,19 +10,7 @@ class Navbar extends Component {
       case null:
         return (
           <li>
-            <div className="preloader-wrapper small active">
-              <div className="spinner-layer spinner-yellow-only">
-                <div className="circle-clipper left">
-                  <div className="circle" />
-                </div>
-                <div className="gap-patch">
-                  <div className="circle" />
-                </div>
-                <div className="circle-clipper right">
-                  <div className="circle" />
-                </div>
-              </div>
-            </div>
+            <Spinner size="small"/>
           </li>
         );
       case false:
@@ -36,7 +25,7 @@ class Navbar extends Component {
             <Link to="/polls/me">My Polls</Link>
           </li>,
           <li key="2">
-            <Link to="/polls/new">New Polls</Link>
+            <Link to="/polls/new">New Poll</Link>
           </li>,
           <li key="3">{user.name}</li>,
           <li key="4">
@@ -47,7 +36,7 @@ class Navbar extends Component {
   };
   render() {
     return (
-      <nav style={{ backgroundColor: "#e67e22" }}>
+      <nav style={{ backgroundColor: baseColor }}>
         <div className="nav-wrapper container">
           <Link to="/polls" className="brand-logo">
             FCC-VOTING
