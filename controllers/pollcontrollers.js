@@ -16,12 +16,23 @@ exports.createPoll = async (req, res) => {
 exports.fetchAllPolls = async (req, res) => {
   try {
     const polls = await Poll.find({});
-    console.log(polls);
     res.send(polls);
   } catch (error) {
     console.log(error);
   }
 };
+
+// fetch a specific poll
+exports.fetchPoll = async (req, res) => {
+  try {
+    const poll = await Poll.findById(req.params.id);
+    res.send(poll);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// fetch my polls
 
 // delete all Polls
 exports.deleteAllPolls = async (req, res) => {
