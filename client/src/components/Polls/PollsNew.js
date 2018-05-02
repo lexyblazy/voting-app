@@ -15,9 +15,8 @@ class PollsNew extends Component {
     }
     const poll = {
       title,
-      options: options.split(",")
+      options: options.split(",").map(option => ({ option }))
     };
-    console.log(poll);
     this.props.createPoll(poll,history);
   };
 

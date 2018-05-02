@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Navbar from "./Navbar";
 import PollsList from "./Polls/PollsList";
 import PollsNew from "./Polls/PollsNew";
+import PollShow from "./Polls/PollShow";
 import { fetchUser } from "../actions";
 
 // Todo => There should be two types of App
@@ -21,6 +22,7 @@ class App extends Component {
         <div>
           <Navbar />
           <Switch>
+            <Route path="/poll/:id" component={PollShow} />
             <Route path="/polls/new" component={PollsNew} />
             <Route path="/polls" component={PollsList} />
             <Route path="/" exact component={PollsList} />

@@ -12,9 +12,13 @@ class PollsList extends Component {
   renderList = () => {
     return this.props.polls.polls.map(poll => {
       return (
-        <li key ={poll._id} className="collection-item">
-          <Link to={`/poll/${poll._id}`}>{poll.title}</Link>
-        </li>
+        <Link
+          key={poll._id}
+          className="collection-item"
+          to={`/poll/${poll._id}`}
+        >
+          {poll.title}
+        </Link>
       );
     });
   };
@@ -32,9 +36,7 @@ class PollsList extends Component {
           </p>
         </div>
         {polls.length > 0 ? (
-          <div>
-            <ul className="collection">{this.renderList()}</ul>
-          </div>
+          <div className="collection">{this.renderList()}</div>
         ) : (
           <Spinner size="big" />
         )}

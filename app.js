@@ -27,6 +27,7 @@ try {
   db();
 } catch (error) {
   console.log(error);
+  setInterval(db, 2000);
 }
 
 // some helpful middleware to make our lives easier
@@ -42,7 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan("tiny"));
 
-//pull in our passport configuratin 
+//pull in our passport configuratin
 require("./services/passport");
 
 //loadup our routes....

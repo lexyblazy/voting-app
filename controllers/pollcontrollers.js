@@ -4,11 +4,13 @@ const Poll = require("../models/Poll");
 //  create a new Poll
 exports.createPoll = async (req, res) => {
   const { title, options } = req.body;
-  const poll = await new Poll({
+  const poll = new Poll({
     title,
-    options: options.map(option => ({ option })),
+    options,
     _author: req.user._id
-  }).save();
+  });
+  console.log(poll);
+  await poll.save();
   res.send(poll);
 };
 
