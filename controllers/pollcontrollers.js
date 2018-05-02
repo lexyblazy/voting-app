@@ -6,7 +6,7 @@ exports.createPoll = async (req, res) => {
   const { title, options } = req.body;
   const poll = await new Poll({
     title,
-    options: options,
+    options: options.map(option => ({ option })),
     _author: req.user._id
   }).save();
   res.send(poll);
