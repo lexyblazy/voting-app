@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { fetchAllPolls } from "../../actions";
 import { Spinner } from "../common";
 
+// This our default landing page...
 class PollsList extends Component {
   componentWillMount() {
     this.props.fetchAllPolls();
   }
 
+  //render a list of all polls
   renderList = () => {
     return this.props.polls.polls.map(poll => {
       return (
@@ -25,7 +27,6 @@ class PollsList extends Component {
 
   render() {
     const { polls } = this.props.polls;
-    console.log(polls);
     return (
       <div className="container center">
         <div>
@@ -45,6 +46,9 @@ class PollsList extends Component {
   }
 }
 
+//this function allows us to access our state object from redux store
+// whatever is returned from here will be available as props
 const mapStateToProps = ({ polls }) => ({ polls });
 
+//connecting our component to the redux store
 export default connect(mapStateToProps, { fetchAllPolls })(PollsList);

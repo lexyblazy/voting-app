@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createPoll } from "../../actions";
 
+
+// this component  is used to create a new poll
+
 class PollsNew extends Component {
   state = { title: "", options: "", error: "" };
 
