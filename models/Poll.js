@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const optionsSchema = require("./Options");
 
 const pollSchema = new Schema({
   _author: {
@@ -7,15 +8,7 @@ const pollSchema = new Schema({
     ref: "User"
   },
   title: String,
-  options: [
-    {
-      option: String,
-      votesCount: {
-        type: Number,
-        default: 0
-      }
-    }
-  ]
+  options: [optionsSchema]
 });
 
 module.exports = mongoose.model("Poll", pollSchema);
