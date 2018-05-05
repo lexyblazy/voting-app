@@ -1,6 +1,7 @@
 import React from "react";
 import { baseColor } from "./colors";
 
+// Our spinner component
 const Spinner = ({size}) => {
   return (
     <div className={`preloader-wrapper ${size} active`}>
