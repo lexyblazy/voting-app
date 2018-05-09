@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { fetchAllPolls } from "../../actions";
 import { Spinner } from "../common";
 
-// This our default landing page...
+// This our default landing component...
+
 class PollsList extends Component {
   componentWillMount() {
     this.props.fetchAllPolls();
@@ -26,7 +27,7 @@ class PollsList extends Component {
   };
 
   render() {
-    const { polls } = this.props.polls;
+    const { polls } = this.props.polls; //==see the comment on line 52
     return (
       <div className="container center">
         <div>
@@ -36,6 +37,10 @@ class PollsList extends Component {
             results and vote, or sign-in to make a new poll.
           </p>
         </div>
+        {/* 
+          The length of polls array has to be greater than 0 before it can be rendered
+          otherwise a spinner will be shown in place
+        */}
         {polls.length > 0 ? (
           <div className="collection">{this.renderList()}</div>
         ) : (

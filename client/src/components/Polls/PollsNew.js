@@ -8,21 +8,27 @@ import { createPoll } from "../../actions";
 class PollsNew extends Component {
   state = { title: "", options: "", error: "" };
 
+  // submit the form
   handleSubmit = e => {
+    e.preventDefault(); // prevent the default form behavior
     const { title, options } = this.state;
+    // the history object is available on any component registered with react-router
     const { history } = this.props;
-    e.preventDefault();
+    // a bit of form validation
     if (!this.state.title || !this.state.options) {
       this.setState({ error: "Complete Required fields" });
       return;
     }
+    // some logic to conform/match  the about to be created poll to our Database Schema
     const poll = {
       title,
       options: options.split(",").map(option => ({ option }))
     };
+    // we dispatch the action that creates the poll
     this.props.createPoll(poll,history);
   };
 
+  //this will handle change on any of the input and reset the error fields
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value, error: "" });
   };
@@ -75,4 +81,7 @@ class PollsNew extends Component {
   }
 }
 
+// we also need to `connect` to this component to the redux store
+// although we do not need any piece of state from the store in this component,
+// however, this component must be able to trigger an action that will eventually update the state.
 export default connect(null, { createPoll })(PollsNew);
