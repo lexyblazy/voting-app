@@ -11,7 +11,12 @@ class PollShow extends Component {
     this.props.fetchPoll(id);
   }
 
-  state = { option: "" };
+  state = {
+    option: "",
+    isLoading: true,
+    customField: false,
+    customFieldValue: ""
+  };
 
   //render the options on a poll
   renderOptions = () => {
@@ -25,18 +30,32 @@ class PollShow extends Component {
     });
   };
 
-  //the event is fired when the options in the select changes
+  //  the event is fired when the options in the select changes
   handleOptionChange = e => {
-    this.setState({ option: e.target.value });
+    if (e.target.value === "custom") {
+      this.setState({ customField: true });
+      return;
+    }
+    this.setState({ option: e.target.value, customField: false });
+  };
+
+  //  this event is fired when the custom input field is changed
+  handleCustomInput = e => {
+    const { value } = e.target;
+    this.setState({ customFieldValue: value, option: value });
   };
 
   // when the form is submitted
   handleSubmit = e => {
     e.preventDefault();
-    if (!this.state.option) return;
-    const {_id} = this.props.poll.poll;
-    const {option} = this.state;
-    this.props.votePoll(_id,option);
+    if (!this.state.option) {
+      alert("You must choose an option");
+      return;
+    }
+    const { _id } = this.props.poll.poll;
+    const { option } = this.state;
+    this.props.votePoll(_id, option);
+    this.setState({ customField: false, customFieldValue: "" });
   };
 
   //draw the chart for a poll
@@ -55,7 +74,10 @@ class PollShow extends Component {
   };
   render() {
     const { poll } = this.props.poll;
+    const { isLoading, customFieldValue, customField } = this.state;
 
+    // if the poll is not available on the state
+    // loadup a spinner
     if (Object.keys(poll).length < 1) {
       return (
         <div className="container">
@@ -78,7 +100,17 @@ class PollShow extends Component {
                   Choose your option
                 </option>
                 {this.renderOptions()}
+                <option value="custom">I'd like a custom option</option>
               </select>
+              {customField ? (
+                <input
+                  type="text"
+                  value={customFieldValue}
+                  onChange={this.handleCustomInput}
+                />
+              ) : (
+                ""
+              )}
             </div>
             <button className="btn" style={{ backgroundColor: baseColor }}>
               Submit
@@ -90,10 +122,10 @@ class PollShow extends Component {
     );
   }
 }
+
 //this function allows us to access our state object from redux store
 // whatever is returned from here will be available as props
 const mapStateToProps = ({ polls }) => ({ poll: polls });
 
 //connecting our component to the redux store
-
 export default connect(mapStateToProps, { fetchPoll, votePoll })(PollShow);
