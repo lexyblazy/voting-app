@@ -12,6 +12,6 @@ router.get("/polls", fetchAllPolls);
 router.post("/polls", requireLogin, createPoll);
 router.get("/poll/:id", fetchPoll);
 router.get("/polls/deleteAll", requireLogin, deleteAllPolls);
-router.post('/poll/:id/vote/:option', requireLogin,voteOnPoll)
+router.post("/poll/:id/vote/:option", voteOnPoll);
 
 module.exports = router;

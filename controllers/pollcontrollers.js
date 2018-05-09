@@ -36,7 +36,7 @@ exports.fetchPoll = async (req, res) => {
 
 //vote on a specific poll
 exports.voteOnPoll = async (req, res) => {
-  //firstly we find that poll;
+  //firstly we find that poll and the option;
   const { id, option } = req.params;
   const poll = await Poll.findOneAndUpdate(
     {
@@ -47,6 +47,16 @@ exports.voteOnPoll = async (req, res) => {
       $inc: { ["options.$.votesCount"]: 1 }
     }
   ).exec();
+  
+  //if that option does not exist, we create it and increment it by 1
+  if (!poll) {
+   const poll = await Poll.findById(id);
+   poll.options.push({
+     option,
+     votesCount: 1
+   });
+   await poll.save();
+  }
   res.send({ message: "Channel exists" });
 };
 
