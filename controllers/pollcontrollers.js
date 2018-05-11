@@ -24,6 +24,15 @@ exports.fetchAllPolls = async (req, res) => {
   }
 };
 
+// fetch all the polls created by the currently logged in user
+exports.fetchMyPolls = async (req, res) => {
+  try {
+    const polls = await Poll.find({ _author: req.user._id });
+    res.send(polls);
+  } catch (error) {
+    console.log(error);
+  }
+};
 // fetch a specific poll
 exports.fetchPoll = async (req, res) => {
   try {
@@ -47,20 +56,18 @@ exports.voteOnPoll = async (req, res) => {
       $inc: { ["options.$.votesCount"]: 1 }
     }
   ).exec();
-  
+
   //if that option does not exist, we create it and increment it by 1
   if (!poll) {
-   const poll = await Poll.findById(id);
-   poll.options.push({
-     option,
-     votesCount: 1
-   });
-   await poll.save();
+    const poll = await Poll.findById(id);
+    poll.options.push({
+      option,
+      votesCount: 1
+    });
+    await poll.save();
   }
   res.send({ message: "Channel exists" });
 };
-
-// fetch my polls
 
 // delete all Polls
 exports.deleteAllPolls = async (req, res) => {
