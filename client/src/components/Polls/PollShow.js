@@ -74,7 +74,7 @@ class PollShow extends Component {
   };
   render() {
     const { poll } = this.props.poll;
-    const { isLoading, customFieldValue, customField } = this.state;
+    const { customFieldValue, customField } = this.state;
 
     // if the poll is not available on the state
     // loadup a spinner

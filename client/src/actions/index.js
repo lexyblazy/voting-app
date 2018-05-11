@@ -17,6 +17,12 @@ export const fetchAllPolls = () => async dispatch => {
   dispatch({ type: FETCH_ALL_POLLS, payload: res.data });
 };
 
+//  this action fetches all the polls by the currently logged in user
+export const fetchMyPolls = () => async dispatch => {
+  const res = await axios.get("/api/polls/me");
+  dispatch({ type: FETCH_ALL_POLLS, payload: res.data });  
+};
+
 // this action fetches a specific poll by id
 export const fetchPoll = id => async dispatch => {
   const res = await axios.get(`/api/poll/${id}`);
