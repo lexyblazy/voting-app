@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Navbar from "./Navbar";
-import PollsList from "./Polls/PollsList";
+import Landing from "./Landing";
 import PollsNew from "./Polls/PollsNew";
 import PollShow from "./Polls/PollShow";
 import { fetchUser } from "../actions";
@@ -24,8 +24,8 @@ class App extends Component {
           <Switch>
             <Route path="/poll/:id" component={PollShow} />
             <Route path="/polls/new" component={PollsNew} />
-            <Route path="/polls" component={PollsList} />
-            <Route path="/" exact component={PollsList} />
+            <Route path="/polls" component={Landing} />
+            <Route path="/" exact component={Landing} />
           </Switch>
         </div>
       </BrowserRouter>
