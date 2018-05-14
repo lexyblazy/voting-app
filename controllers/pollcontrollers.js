@@ -69,6 +69,18 @@ exports.voteOnPoll = async (req, res) => {
   res.send({ message: "Channel exists" });
 };
 
+// delete a specific poll
+exports.deletePoll = async (req, res) => {
+  //verify if the currently logged in user created that poll
+  const poll = await Poll.findById(req.params.id);
+  if (poll._author.equals(req.user._id)) {
+    console.log("this users owns this poll");
+    await poll.remove();
+    return res.send({ message: "Deleted" });
+  }
+  res.status(403).send({ error: "You are not authorized to do that" });
+};
+
 // delete all Polls
 exports.deleteAllPolls = async (req, res) => {
   await Poll.remove();

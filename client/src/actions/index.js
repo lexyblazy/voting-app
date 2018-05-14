@@ -33,7 +33,7 @@ export const fetchPoll = id => async dispatch => {
 export const createPoll = (poll, history) => {
   return async dispatch => {
     try {
-      const res = await axios.post("/api/polls", poll);
+      await axios.post("/api/polls", poll);
       history.push("/polls");
     } catch (error) {
       console.log(error.response.data);
