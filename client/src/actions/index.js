@@ -64,7 +64,7 @@ export const deletePoll = pollId => {
     try {
       //the request to delete the poll,
       //firstly the we make a request to delete the poll on the server
-      const res = await axios.delete(`/api/poll/${pollId}`);
+      await axios.delete(`/api/poll/${pollId}`);
       // then we dispatch an action to delete it on the client
       dispatch({ type: DELETE_POLL, payload: pollId });
     } catch (error) {
