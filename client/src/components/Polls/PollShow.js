@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchPoll, votePoll } from "../../actions/";
+import { fetchPoll, votePoll, deletePoll } from "../../actions/";
 import { Spinner, baseColor, Chart, generateRandomColor } from "../common";
 
 //This component will be used to show details for a specific poll
@@ -46,7 +46,7 @@ class PollShow extends Component {
   };
 
   // when the form is submitted
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     if (!this.state.option) {
       alert("You must choose an option");
@@ -54,8 +54,11 @@ class PollShow extends Component {
     }
     const { _id } = this.props.poll.poll;
     const { option } = this.state;
-    this.props.votePoll(_id, option);
-    this.setState({ customField: false, customFieldValue: "" });
+    try {
+      await this.props.votePoll(_id, option);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //draw the chart for a poll
@@ -72,6 +75,31 @@ class PollShow extends Component {
     });
     return <Chart chartData={data} />;
   };
+
+  // show the deleteButton
+  deleteButton = () => {
+    const {
+      poll: { poll },
+      auth,
+      history
+    } = this.props;
+    if (auth.user && poll._author === auth.user._id) {
+      return (
+        <div style={{ marginTop: 20 }}>
+          <button
+            className="btn red"
+            onClick={() => {
+              this.props.deletePoll(poll._id);
+              history.push("/polls");
+            }}
+          >
+            DELETE
+          </button>
+        </div>
+      );
+    }
+  };
+
   render() {
     const { poll } = this.props.poll;
     const { customFieldValue, customField } = this.state;
@@ -88,7 +116,7 @@ class PollShow extends Component {
     return (
       <div className="container" style={{ marginTop: 50 }}>
         <div className="row">
-          <form className="col s6" onSubmit={this.handleSubmit}>
+          <form className="col s6">
             <h5>{poll.title}</h5>
             <div style={{ marginBottom: 20 }}>
               <label>I'd like to vote for: </label>
@@ -112,9 +140,14 @@ class PollShow extends Component {
                 ""
               )}
             </div>
-            <button className="btn" style={{ backgroundColor: baseColor }}>
+            <button
+              onClick={this.handleSubmit}
+              className="btn"
+              style={{ backgroundColor: baseColor }}
+            >
               Submit
             </button>
+            {this.deleteButton()}
           </form>
           <div className="col s6">{this.renderChart()}</div>
         </div>
@@ -125,7 +158,9 @@ class PollShow extends Component {
 
 //this function allows us to access our state object from redux store
 // whatever is returned from here will be available as props
-const mapStateToProps = ({ polls }) => ({ poll: polls });
+const mapStateToProps = ({ polls, auth }) => ({ poll: polls, auth });
 
 //connecting our component to the redux store
-export default connect(mapStateToProps, { fetchPoll, votePoll })(PollShow);
+export default connect(mapStateToProps, { fetchPoll, votePoll, deletePoll })(
+  PollShow
+);

@@ -1,4 +1,4 @@
-import { FETCH_ALL_POLLS, FETCH_POLL } from "../actions/types";
+import { FETCH_ALL_POLLS, FETCH_POLL, DELETE_POLL } from "../actions/types";
 const INITIAL_STATE = { polls: [], poll: {} };
 
 export default function(state = INITIAL_STATE, action) {
@@ -7,6 +7,12 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, polls: action.payload };
     case FETCH_POLL:
       return { ...state, poll: action.payload };
+    case DELETE_POLL:
+      const polls = state.polls.filter(poll => poll._id !== action.payload);
+      return {
+        ...state,
+        polls
+      };
     default:
       return state;
   }
