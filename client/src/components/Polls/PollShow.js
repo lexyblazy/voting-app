@@ -128,14 +128,22 @@ class PollShow extends Component {
                   Choose your option
                 </option>
                 {this.renderOptions()}
-                <option value="custom">I'd like a custom option</option>
+                {this.props.auth.user ? (
+                  <option value="custom">I'd like a custom option</option>
+                ) : (
+                  ""
+                )}
               </select>
-              {customField ? (
-                <input
-                  type="text"
-                  value={customFieldValue}
-                  onChange={this.handleCustomInput}
-                />
+              {this.props.auth.user ? (
+                customField ? (
+                  <input
+                    type="text"
+                    value={customFieldValue}
+                    onChange={this.handleCustomInput}
+                  />
+                ) : (
+                  ""
+                )
               ) : (
                 ""
               )}
