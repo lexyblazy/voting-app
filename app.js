@@ -31,6 +31,7 @@ try {
 }
 
 // some helpful middleware to make our lives easier
+app.enable("trust proxy");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(

@@ -48,7 +48,8 @@ export const votePoll = (pollId, choice) => {
   return async dispatch => {
     try {
       //send our option to the api
-      await axios.post(`/api/poll/${pollId}/vote/${choice}`);
+      const vote = await axios.post(`/api/poll/${pollId}/vote/${choice}`);
+      alert(vote.data);
       // then fetch the updated version of that poll
       const res = await axios.get(`/api/poll/${pollId}`);
       dispatch({ type: FETCH_POLL, payload: res.data });
