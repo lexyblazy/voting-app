@@ -8,7 +8,8 @@ const pollSchema = new Schema({
     ref: "User"
   },
   title: String,
-  options: [optionsSchema]
+  options: [optionsSchema],
+  respondees: [String]
 });
 
 module.exports = mongoose.model("Poll", pollSchema);

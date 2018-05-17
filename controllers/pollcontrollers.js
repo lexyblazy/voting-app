@@ -45,28 +45,50 @@ exports.fetchPoll = async (req, res) => {
 
 //vote on a specific poll
 exports.voteOnPoll = async (req, res) => {
-  //firstly we find that poll and the option;
+  //we get the ip of that user, if he is not logged in.
+  const ip = req.ip || req.connection.remoteAddress;
+  let respondee;
+  if (req.user) {
+    //if the user object exits, we assign the respondee as that user's id
+    respondee = req.user._id;
+  } else {
+    // else we assign the respondee as that user's ip
+    respondee = ip;
+  }
+  // before a vote is casted, we ensure that that user or ip-address has not voted
   const { id, option } = req.params;
+  const hasVoted = await Poll.find({
+    _id: id,
+    respondees: respondee
+  });
+
+  if (hasVoted && hasVoted.length > 0) {
+    return res.status(200).send("You have already voted on this poll");
+  }
+
+  // firstly we find that poll and the option;
   const poll = await Poll.findOneAndUpdate(
     {
       _id: id,
       options: { $elemMatch: { option } }
     },
     {
-      $inc: { ["options.$.votesCount"]: 1 }
+      $inc: { ["options.$.votesCount"]: 1 }, //we increment the vote count by 1
+      $addToSet: { respondees: respondee } //we add that respondee to the array of respondees
     }
-  ).exec();
+  ).exec(); // we execute the query
 
-  //if that option does not exist, we create it and increment it by 1
+  //if that option does not exist, we create it and increment the voteCount by 1
+  // also, we add that respondee to the respondees array
   if (!poll) {
-    const poll = await Poll.findById(id);
-    poll.options.push({
-      option,
-      votesCount: 1
-    });
-    await poll.save();
+    const poll = await Poll.findByIdAndUpdate(id, {
+      $addToSet: {
+        options: { option, votesCount: 1 },
+        respondees: respondee
+      }
+    }).exec();
   }
-  res.send({ message: "Your vote has been placed" });
+  res.status(200).send("Your vote has been placed");
 };
 
 // delete a specific poll
