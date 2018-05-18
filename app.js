@@ -15,11 +15,11 @@ mongoose.Promise = global.Promise;
 //relative imports
 const authRoutes = require("./routes/authRoutes");
 const pollRoutes = require("./routes/pollRoutes");
-const { SECRET } = require("./config/keys");
+const { SECRET, DB } = require("./config/keys");
 
 // connect to the database;
 const db = async () => {
-  await mongoose.connect("mongodb://localhost:27017/voting-app");
+  await mongoose.connect(DB);
   console.log("Connection the db was successful");
 };
 

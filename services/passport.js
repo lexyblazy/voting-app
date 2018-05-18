@@ -19,7 +19,6 @@ passport.use(
       try {
         //before we do create a new user, we need to be sure if that user does not exist in our database;
         const existingUser = await User.findOne({ twitterId: profile.id });
-        //if no exisiting user,
         if (existingUser) {
           //we update the user details;
           existingUser.name = profile.displayName;
@@ -27,6 +26,7 @@ passport.use(
           await existingUser.save();
           return done(null, existingUser);
         }
+        //if no exisiting user,
         const user = new User({
           twitterId: profile.id,
           name: profile.displayName,
