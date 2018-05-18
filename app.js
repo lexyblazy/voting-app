@@ -30,6 +30,18 @@ try {
   setInterval(db, 2000);
 }
 
+if (process.env.NODE_ENV == "production") {
+  const path = require("path");
+  // express will serve up our static assets such as index.html, main.js and css
+  app.use(express.static(`${__dirname}/client/build`));
+
+  //for any set of routes that are not defined within out app
+  app.get("*", (req, res) => {
+    const index = path.resolve("client", "build", "index.html");
+    res.sendFile(index);
+  });
+}
+
 // some helpful middleware to make our lives easier
 app.enable("trust proxy");
 app.use(bodyParser.urlencoded({ extended: true }));
