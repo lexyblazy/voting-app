@@ -17,19 +17,14 @@ const pollRoutes = require("./routes/pollRoutes");
 const { SECRET, DB } = require("./config/keys");
 
 // connect to the database;
-const db = async () => {
-  await mongoose.connect(DB);
-  console.log("Connection the db was successful");
-};
-
-try {
-  db();
-} catch (error) {
-  console.log(error);
-  setInterval(db, 2000);
-}
-
-
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log("Connection the db was successful");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 // some helpful middleware to make our lives easier
 app.enable("trust proxy");
@@ -60,12 +55,11 @@ app.get("/", (req, res) => {
 if (process.env.NODE_ENV === "production") {
   const path = require("path");
   // express will serve up our static assets such as index.html, main.js and css
-  app.use(express.static('client/build'));
+  app.use(express.static("client/build"));
 
   //for any set of routes that are not defined within out app
   app.get("*", (req, res) => {
-    const index = path.resolve(__dirname,"client", "build", "index.html");
-    res.sendFile(index);
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
