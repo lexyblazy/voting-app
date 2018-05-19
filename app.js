@@ -46,7 +46,7 @@ app.use(morgan("tiny"));
 require("./services/passport");
 
 //loadup our routes....
-
+app.options('*', cors());
 app.use("/api", authRoutes);
 app.use("/api", pollRoutes);
 
