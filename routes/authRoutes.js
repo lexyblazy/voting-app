@@ -13,10 +13,10 @@ router.get(
   }
 );
 // fetch the current user
-router.get("/api/current_user", (req, res) => {
+router.get("/current_user", (req, res) => {
   res.send(req.user);
 });
 
-router.get("/api/logout", logout);
+router.get("/logout", logout);
 
 module.exports = router;
