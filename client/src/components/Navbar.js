@@ -16,7 +16,7 @@ class Navbar extends Component {
       case false:
         return (
           <li>
-            <a href="/auth/twitter">Signin/Signup With Twitter</a>
+            <a href="/api/auth/twitter">Signin/Signup With Twitter</a>
           </li>
         );
       default:

@@ -45,7 +45,7 @@ require("./services/passport");
 
 //loadup our routes....
 
-app.use(authRoutes);
+app.use("/api", authRoutes);
 app.use("/api", pollRoutes);
 
 // if we are in production
