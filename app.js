@@ -44,17 +44,6 @@ app.use(morgan("tiny"));
 require("./services/passport");
 
 //loadup our routes....
-app.get("/", passport.authenticate("twitter"));
-
-app.get(
-  "/auth/twitter/callback",
-  passport.authenticate("twitter", { failureRedirect: "/api" }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect("/");
-  }
-);
-
 app.use(authRoutes);
 app.use("/api", pollRoutes);
 
@@ -65,9 +54,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   //for any set of routes that are not defined within out app
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
+  // app.get("*", (req, res) => {
+  //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  // });
 }
 
 //and of course, listen on this port...
