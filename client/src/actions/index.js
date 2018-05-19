@@ -7,26 +7,42 @@ import { FETCH_USER, FETCH_ALL_POLLS, FETCH_POLL, DELETE_POLL } from "./types";
 
 // this action fetches the user and sends it off to the reducers
 export const fetchUser = () => async dispatch => {
-  const res = await axios.get("/api/current_user");
-  dispatch({ type: FETCH_USER, payload: res.data });
+  try {
+    const res = await axios.get("/api/current_user");
+    dispatch({ type: FETCH_USER, payload: res.data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // this action fetches all polls
 export const fetchAllPolls = () => async dispatch => {
-  const res = await axios.get("/api/polls");
-  dispatch({ type: FETCH_ALL_POLLS, payload: res.data });
+  try {
+    const res = await axios.get("/api/polls");
+    dispatch({ type: FETCH_ALL_POLLS, payload: res.data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //  this action fetches all the polls by the currently logged in user
 export const fetchMyPolls = () => async dispatch => {
-  const res = await axios.get("/api/polls/me");
-  dispatch({ type: FETCH_ALL_POLLS, payload: res.data });
+  try {
+    const res = await axios.get("/api/polls/me");
+    dispatch({ type: FETCH_ALL_POLLS, payload: res.data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // this action fetches a specific poll by id
 export const fetchPoll = id => async dispatch => {
-  const res = await axios.get(`/api/poll/${id}`);
-  dispatch({ type: FETCH_POLL, payload: res.data });
+  try {
+    const res = await axios.get(`/api/poll/${id}`);
+    dispatch({ type: FETCH_POLL, payload: res.data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // this action creates a new poll on the server/database
