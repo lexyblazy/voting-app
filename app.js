@@ -29,14 +29,14 @@ try {
   setInterval(db, 2000);
 }
 
-if (process.env.NODE_ENV == "production") {
+if (process.env.NODE_ENV === "production") {
   const path = require("path");
   // express will serve up our static assets such as index.html, main.js and css
-  app.use(express.static(`${__dirname}/client/build`));
+  app.use(express.static('client/build'));
 
   //for any set of routes that are not defined within out app
   app.get("*", (req, res) => {
-    const index = path.resolve("client", "build", "index.html");
+    const index = path.resolve(__dirname,"client", "build", "index.html");
     res.sendFile(index);
   });
 }
