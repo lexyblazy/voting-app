@@ -29,7 +29,6 @@ mongoose
 
 // some helpful middleware to make our lives easier
 app.enable("trust proxy");
-app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -51,7 +50,6 @@ app.use(morgan("tiny"));
 require("./services/passport");
 
 //loadup our routes....
-app.options('*', cors());
 app.use("/api", authRoutes);
 app.use("/api", pollRoutes);
 
