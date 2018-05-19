@@ -47,9 +47,6 @@ require("./services/passport");
 app.use(authRoutes);
 app.use("/api", pollRoutes);
 
-app.get("/", (req, res) => {
-  res.send({ message: "Home page" });
-});
 
 // if we are in production
 if (process.env.NODE_ENV === "production") {
