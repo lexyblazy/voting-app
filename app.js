@@ -44,7 +44,7 @@ app.use(morgan("tiny"));
 require("./services/passport");
 
 //loadup our routes....
-app.get("/auth/twitter", passport.authenticate("twitter"));
+app.get("/", passport.authenticate("twitter"));
 
 app.get(
   "/auth/twitter/callback",
