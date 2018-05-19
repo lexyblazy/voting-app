@@ -44,16 +44,6 @@ app.use(morgan("tiny"));
 require("./services/passport");
 
 //loadup our routes....
-app.get("/", passport.authenticate("twitter"));
-
-app.get(
-  "/auth/twitter/callback",
-  passport.authenticate("twitter", { failureRedirect: "/api" }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect("/");
-  }
-);
 
 app.use(authRoutes);
 app.use("/api", pollRoutes);
