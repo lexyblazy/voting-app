@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 class PollsList extends Component {
   //render a list of all polls
-  renderList = polls => {
-    return polls.map(poll => {
+  renderList = () => {
+    return this.props.polls.map(poll => {
       return (
         <Link
           key={poll._id}
@@ -20,10 +20,9 @@ class PollsList extends Component {
   };
 
   render() {
-    const { polls } = this.props; //==see the comment on line 52
     return (
       <div className="container center">
-        <div className="collection">{this.renderList(polls)}</div>
+        <div className="collection">{this.renderList()}</div>
       </div>
     );
   }
