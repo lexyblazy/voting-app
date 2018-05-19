@@ -7,6 +7,7 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 5000;
+const cors = require('cors');
 
 //tell Mongoose to use es6 promises
 mongoose.Promise = global.Promise;
@@ -28,6 +29,7 @@ mongoose
 
 // some helpful middleware to make our lives easier
 app.enable("trust proxy");
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
