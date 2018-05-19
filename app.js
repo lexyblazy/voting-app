@@ -29,17 +29,7 @@ try {
   setInterval(db, 2000);
 }
 
-if (process.env.NODE_ENV === "production") {
-  const path = require("path");
-  // express will serve up our static assets such as index.html, main.js and css
-  app.use(express.static('client/build'));
 
-  //for any set of routes that are not defined within out app
-  app.get("*", (req, res) => {
-    const index = path.resolve(__dirname,"client", "build", "index.html");
-    res.sendFile(index);
-  });
-}
 
 // some helpful middleware to make our lives easier
 app.enable("trust proxy");
@@ -65,6 +55,19 @@ app.use("/api", pollRoutes);
 app.get("/", (req, res) => {
   res.send({ message: "Home page" });
 });
+
+// if we are in production
+if (process.env.NODE_ENV === "production") {
+  const path = require("path");
+  // express will serve up our static assets such as index.html, main.js and css
+  app.use(express.static('client/build'));
+
+  //for any set of routes that are not defined within out app
+  app.get("*", (req, res) => {
+    const index = path.resolve(__dirname,"client", "build", "index.html");
+    res.sendFile(index);
+  });
+}
 
 //and of course, listen on this port...
 app.listen(PORT, () => {

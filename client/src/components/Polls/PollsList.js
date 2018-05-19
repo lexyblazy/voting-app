@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 class PollsList extends Component {
   //render a list of all polls
   renderList = () => {
-    console.log('This.props.map', this.props.polls);
+    console.log('This.props.map =>', this.props.polls);
     return this.props.polls.map(poll => {
       return (
         <Link
