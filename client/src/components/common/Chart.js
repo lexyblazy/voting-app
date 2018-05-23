@@ -17,9 +17,10 @@ class Chart extends Component {
     //if they are the same, component should not update
 
     const isEqual =
+      this.props.chartData.length === nextProps.chartData.length &&
       this.props.chartData.every((val, index) =>
         _.isEqual(val.value, nextProps.chartData[index].value)
-      ) && this.props.chartData.length === nextProps.chartData.length;
+      );
 
     // the variable `isEqual` returns a boolean (true || false).
     // if true, we return false
