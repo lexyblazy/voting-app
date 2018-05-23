@@ -26,10 +26,6 @@ passport.use(
         */
         const existingUser = await User.findOne({ twitterId: profile.id });
         if (existingUser) {
-          //we update the user details;
-          existingUser.name = profile.displayName;
-          existingUser.photo = profile.photos[0].value;
-          await existingUser.save();
           return done(null, existingUser);
         }
 
@@ -60,9 +56,6 @@ passport.use(
       try {
         const exisitingUser = await User.findOne({ googleId: profile.id });
         if (exisitingUser) {
-          existingUser.name = profile.displayName;
-          existingUser.photo = profile.photos[0].value;
-          await existingUser.save();
           return done(null, exisitingUser);
         }
         const user = await new User({
