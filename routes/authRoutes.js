@@ -12,6 +12,20 @@ router.get(
     res.redirect("/");
   }
 );
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "back",
+    successRedirect: ""
+  }),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
 // fetch the current user
 router.get("/api/current_user", (req, res) => {
   res.send(req.user);

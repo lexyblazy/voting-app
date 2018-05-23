@@ -1,5 +1,6 @@
 const passport = require("passport");
 const TwitterStrategy = require("passport-twitter").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
 
 const {
@@ -52,13 +53,20 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       //   console.log("accessToken => ", accessToken);
       //   console.log("refreshToken => ", refreshToken);
-      //   console.log("profile => ", profile);
+      // console.log("profile => ", profile);
       try {
         const exisitingUser = await User.findOne({ googleId: profile.id });
         if (exisitingUser) {
+          existingUser.name = profile.displayName;
+          existingUser.photo = profile.photos[0].value;
+          await existingUser.save();
           return done(null, exisitingUser);
         }
-        const user = await new User({ googleId: profile.id }).save();
+        const user = await new User({
+          googleId: profile.id,
+          name: profile.displayName,
+          photo: profile.photos[0].value,
+        }).save();
         done(null, user);
       } catch (error) {
         console.log("Error => ", error);

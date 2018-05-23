@@ -10,15 +10,22 @@ class Navbar extends Component {
       case null:
         return (
           <li>
-            <Spinner size="small"/>
+            <Spinner size="small" />
           </li>
         );
       case false:
-        return (
+        return [
           <li>
-            <a href="/api/auth/twitter">Signin/Signup With Twitter</a>
+            <a href="/auth/twitter" key="twitter">
+              Signin/Signup With Twitter
+            </a>
+          </li>,
+          <li>
+            <a href="/auth/google" key="google">
+              Signin/Signup With Google
+            </a>
           </li>
-        );
+        ];
       default:
         return [
           <li key="1">
