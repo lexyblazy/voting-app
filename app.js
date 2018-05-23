@@ -50,7 +50,7 @@ app.use(morgan("tiny"));
 require("./services/passport");
 
 //loadup our routes....
-app.use("/api", authRoutes);
+app.use(authRoutes);
 app.use("/api", pollRoutes);
 
 // if we are in production
