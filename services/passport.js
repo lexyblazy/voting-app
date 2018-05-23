@@ -20,7 +20,10 @@ passport.use(
     },
     async (token, tokenSecret, profile, done) => {
       try {
-        //before we do create a new user, we need to be sure if that user does not exist in our database;
+        /*
+          before we do create a new twiiter user, we need to be sure
+          that user does not exist in our database
+        */
         const existingUser = await User.findOne({ twitterId: profile.id });
         if (existingUser) {
           //we update the user details;
@@ -29,7 +32,8 @@ passport.use(
           await existingUser.save();
           return done(null, existingUser);
         }
-        //if no exisiting user,
+
+        //  if no exisiting user,
         const user = new User({
           twitterId: profile.id,
           name: profile.displayName,
@@ -43,6 +47,7 @@ passport.use(
     }
   )
 );
+
 passport.use(
   new GoogleStrategy(
     {
@@ -52,9 +57,6 @@ passport.use(
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
-      //   console.log("accessToken => ", accessToken);
-      //   console.log("refreshToken => ", refreshToken);
-      // console.log("profile => ", profile);
       try {
         const exisitingUser = await User.findOne({ googleId: profile.id });
         if (exisitingUser) {
@@ -68,7 +70,7 @@ passport.use(
           name: profile.displayName,
           photo: profile.photos[0].value,
         }).save();
-        done(null, user);
+        return done(null, user);
       } catch (error) {
         console.log("Error => ", error);
       }
