@@ -28,6 +28,7 @@ mongoose
   });
 
 // some helpful middleware to make our lives easier
+app.enable("trust proxy");
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -57,6 +58,7 @@ if (process.env.NODE_ENV === "production") {
   const path = require("path");
   // express will serve up our static assets such as index.html, main.js and css
   app.use(express.static("client/build"));
+
   //for any set of routes that are not defined within out app
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
