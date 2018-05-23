@@ -1,10 +1,13 @@
 const passport = require("passport");
 const TwitterStrategy = require("passport-twitter").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
 
 const {
   TWITTER_CONSUMER_KEY,
-  TWITTER_CONSUMER_SECRET
+  TWITTER_CONSUMER_SECRET,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET
 } = require("../config/keys");
 
 passport.use(
@@ -36,6 +39,37 @@ passport.use(
         return done(null, user);
       } catch (error) {
         console.log(error);
+      }
+    }
+  )
+);
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/callback"
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      //   console.log("accessToken => ", accessToken);
+      //   console.log("refreshToken => ", refreshToken);
+      // console.log("profile => ", profile);
+      try {
+        const exisitingUser = await User.findOne({ googleId: profile.id });
+        if (exisitingUser) {
+          existingUser.name = profile.displayName;
+          existingUser.photo = profile.photos[0].value;
+          await existingUser.save();
+          return done(null, exisitingUser);
+        }
+        const user = await new User({
+          googleId: profile.id,
+          name: profile.displayName,
+          photo: profile.photos[0].value,
+        }).save();
+        done(null, user);
+      } catch (error) {
+        console.log("Error => ", error);
       }
     }
   )
