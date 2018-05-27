@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchPoll, votePoll, deletePoll } from "../../actions/";
+import {
+  fetchPoll,
+  votePoll,
+  deletePoll,
+  clearCurrentPoll
+} from "../../actions/";
 import { Spinner, baseColor, Chart, generateRandomColor } from "../common";
 
 //This component will be used to show details for a specific poll
@@ -9,6 +14,10 @@ class PollShow extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.fetchPoll(id);
+  }
+
+  componentWillUnmount() {
+    this.props.clearCurrentPoll();
   }
 
   state = {
@@ -169,6 +178,9 @@ class PollShow extends Component {
 const mapStateToProps = ({ polls, auth }) => ({ poll: polls, auth });
 
 //connecting our component to the redux store
-export default connect(mapStateToProps, { fetchPoll, votePoll, deletePoll })(
-  PollShow
-);
+export default connect(mapStateToProps, {
+  fetchPoll,
+  votePoll,
+  deletePoll,
+  clearCurrentPoll
+})(PollShow);

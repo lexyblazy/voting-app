@@ -1,5 +1,11 @@
 import axios from "axios";
-import { FETCH_USER, FETCH_ALL_POLLS, FETCH_POLL, DELETE_POLL } from "./types";
+import {
+  FETCH_USER,
+  FETCH_ALL_POLLS,
+  FETCH_POLL,
+  DELETE_POLL,
+  CLEAR_CURRENT_POLL
+} from "./types";
 
 /*===========================================================
   WHATEVER IS DISPATCHED FROM HERE GETS SENT TO THE REDUCERS
@@ -75,7 +81,7 @@ export const votePoll = (pollId, choice) => {
   };
 };
 
-// this action deletesa poll
+// this action deletes a poll
 export const deletePoll = pollId => {
   return async dispatch => {
     try {
@@ -87,5 +93,16 @@ export const deletePoll = pollId => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+/*
+ this action clears the currently viewed poll from the application state when the PollShow component is unmounted, 
+ so the previous Poll data will not interfere with the next Poll data during rendering
+
+*/
+export const clearCurrentPoll = () => {
+  return {
+    type: CLEAR_CURRENT_POLL
   };
 };

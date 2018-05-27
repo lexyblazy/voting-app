@@ -1,4 +1,9 @@
-import { FETCH_ALL_POLLS, FETCH_POLL, DELETE_POLL } from "../actions/types";
+import {
+  FETCH_ALL_POLLS,
+  FETCH_POLL,
+  DELETE_POLL,
+  CLEAR_CURRENT_POLL
+} from "../actions/types";
 const INITIAL_STATE = { polls: [], poll: {} };
 
 export default function(state = INITIAL_STATE, action) {
@@ -12,6 +17,11 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         polls
+      };
+    case CLEAR_CURRENT_POLL:
+      return {
+        ...state,
+        poll: {}
       };
     default:
       return state;
